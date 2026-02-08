@@ -1,0 +1,329 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0b0b10;
+  color: #fff;
+  overflow-x: hidden;
+}
+
+/* Rideau */
+.rideau{
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.9);
+  z-index: 1000;
+}
+.rideau--visible{ display: flex; }
+.rideau__texte{ font-size: 18px; opacity: 0.8; }
+
+/* Landing */
+.landing{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, #0e1026, #2b1b3f);
+}
+
+.landing__contenu{
+  max-width: 900px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.landing__titre{ font-size: 46px; margin-bottom: 6px; }
+.landing__texte{ opacity: 0.8; margin-bottom: 6px; }
+
+/* Intro landing (déclenchée par JS avec .landing--intro) */
+.landing__titre,
+.landing__sousTitre,
+.landing__texte,
+#boutonEntrer{
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.landing--intro .landing__titre{ animation: introArrivee 0.8s ease forwards; }
+.landing--intro .landing__sousTitre{ animation: introArrivee 0.8s ease forwards 0.15s; }
+.landing--intro .landing__texte{ animation: introArrivee 0.8s ease forwards 0.3s; }
+
+.landing--intro #boutonEntrer{
+  animation:
+    introBouton 0.9s ease forwards 0.45s,
+    pulseBouton 1.8s ease-in-out 1.6s infinite;
+}
+
+/* Chapitres */
+.chapitre{
+  min-height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.chapitre--visible{ display: flex; }
+
+.chapitre--joie{ background: linear-gradient(120deg, #ffe66d, #ff4d6d); }
+.chapitre--surprise{ background: linear-gradient(120deg, #050508, #6d28d9); }
+.chapitre--degout{ background: linear-gradient(120deg, #0f1510, #2b2f24); }
+
+/* Effets globaux (confettis / fissures / pluie) */
+.chapitre--joie::before{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  pointer-events:none;
+  z-index:5;
+  background: url("../images/confettis.png") repeat;
+  background-size: 120px 120px;
+  opacity:0.9;
+  animation: confettisPluie 6s linear infinite;
+}
+
+.chapitre--joie::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:4;
+  background: radial-gradient(circle at 50% 30%, rgba(255,255,255,0.08), transparent 60%);
+}
+
+.chapitre--surprise::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  pointer-events:none;
+  z-index:5;
+  background: url("../images/fissures.png") repeat;
+  background-size: 110px 110px;
+  opacity:0.35;
+  animation: chocSurprise 1.2s steps(2,end) infinite;
+}
+
+.chapitre--degout::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:4;
+  background: rgba(30,40,30,0.45);
+}
+
+.chapitre--degout::after{
+  content:"";
+  position:absolute;
+  inset:-20%;
+  pointer-events:none;
+  z-index:5;
+  background: url("../images/pluie.png") repeat;
+  background-size: 80px 80px;
+  opacity:0.22;
+  animation: pluieGlobale 2s linear infinite;
+}
+
+/* Cadre */
+.cadre{
+  width: 100%;
+  max-width: 980px;
+  height: 620px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Transition entre chapitres */
+.cadre--sortie{
+  animation: sortieCadre 0.6s ease both;
+}
+
+/* Scènes */
+.scene{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  pointer-events:none;
+}
+.scene--active{
+  opacity:1;
+  pointer-events:auto;
+}
+.scene--active.scene--animee{ z-index:10; }
+
+/* Décor (tableau) */
+.decor{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  overflow:hidden;
+}
+.decor::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.06);
+  will-change: transform;
+}
+.decor::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(circle at 50% 40%, rgba(0,0,0,0.12), rgba(0,0,0,0.72));
+}
+
+/* Images par scène */
+.scene--joie-2 .decor--joie::before{ background-image: url("../images/marianne_1.jpg"); }
+.scene--joie-1 .decor--joie::before{ background-image: url("../images/marianne_2.jpg"); }
+.scene--joie-3 .decor--joie::before{ background-image: url("../images/marianne_3.jpg"); }
+
+.scene--bastille-1 .decor--surprise::before{ background-image: url("../images/bastille_1.jpg"); }
+.scene--bastille-2 .decor--surprise::before{ background-image: url("../images/bastille_2.jpg"); }
+.scene--bastille-3 .decor--surprise::before{ background-image: url("../images/bastille_3.jpg"); }
+
+.scene--sedan-1 .decor--degout::before{ background-image: url("../images/sedan_1.jpg"); }
+.scene--sedan-2 .decor--degout::before{ background-image: url("../images/sedan_2.jpg"); }
+.scene--sedan-3 .decor--degout::before{ background-image: url("../images/sedan_3.jpg"); }
+
+/* Tableaux vivants */
+.scene--active.scene--animee .decor--joie::before{
+  filter: saturate(1.25) contrast(1.08) brightness(1.06);
+  animation: tableauJoie 6s ease-in-out infinite;
+}
+.scene--active.scene--animee .decor--surprise::before{
+  filter: contrast(1.12);
+  animation: tableauSurprise 0.85s steps(2,end) infinite;
+}
+.scene--active.scene--animee .decor--degout::before{
+  filter: saturate(0.55) brightness(0.9) hue-rotate(-15deg);
+  animation: tableauDegout 7s ease-in-out infinite;
+}
+
+/* Texte */
+.texte{
+  position:absolute;
+  top:20px;
+  right:20px;
+  max-width:360px;
+  z-index:50;
+  background: rgba(0,0,0,0.4);
+  padding:14px;
+  border-radius:14px;
+  opacity:0;
+  transform: translateY(14px);
+  filter: blur(5px);
+}
+
+.scene--active.scene--animee .texte--joie{ animation: texteEntree 0.8s ease forwards; }
+.scene--active.scene--animee .texte--surprise{ animation: texteEntreeRapide 0.4s steps(1,end) forwards; }
+.scene--active.scene--animee .texte--degout{ animation: texteEntreeLente 1.2s ease forwards; background: rgba(0,0,0,0.55); }
+
+/* Bastille : morceaux */
+.texte--fragmente .morceau{
+  opacity:0;
+  transform: translateY(10px);
+}
+.scene--active.scene--animee .texte--fragmente .morceau{
+  animation: apparition 0.4s ease forwards;
+}
+.scene--active.scene--animee .texte--fragmente .morceau:nth-child(2){ animation-delay:0.15s; }
+.scene--active.scene--animee .texte--fragmente .morceau:nth-child(3){ animation-delay:0.30s; }
+.scene--active.scene--animee .texte--fragmente .morceau:nth-child(4){ animation-delay:0.45s; }
+
+/* Boutons */
+.bouton{
+  position:absolute;
+  left:24px;
+  bottom:24px;
+  z-index:100;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.3);
+  color:#fff;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* Bouton de la landing : normal (pas en bas à gauche) */
+.landing .bouton{
+  position: static;
+  margin-top: 10px;
+}
+
+/* Animations */
+@keyframes apparition{
+  to { opacity:1; transform: translateY(0); }
+}
+
+@keyframes tableauJoie{
+  0%,100%{ transform: scale(1.06) translate(0,0); }
+  50%{ transform: scale(1.12) translate(-1.5%, -1%); }
+}
+
+@keyframes tableauSurprise{
+  0%{ transform: scale(1.06) translate(0,0); }
+  50%{ transform: scale(1.1) translate(1%, -1%); }
+  100%{ transform: scale(1.06) translate(0,0); }
+}
+
+@keyframes tableauDegout{
+  0%,100%{ transform: scale(1.08) translate(0,0); }
+  50%{ transform: scale(1.12) translate(1.5%, 1.2%); }
+}
+
+@keyframes confettisPluie{
+  from{ background-position: 0 -200px; }
+  to{ background-position: 0 400px; }
+}
+
+@keyframes pluieGlobale{
+  from{ background-position: 0 -200px; }
+  to{ background-position: 0 300px; }
+}
+
+@keyframes chocSurprise{
+  0%{ transform: translate(0,0); }
+  50%{ transform: translate(6px,-4px); }
+  100%{ transform: translate(0,0); }
+}
+
+@keyframes texteEntree{
+  to { opacity:1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes texteEntreeRapide{
+  to { opacity:1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes texteEntreeLente{
+  to { opacity:1; transform: translateY(0); filter: blur(0); }
+}
+
+@keyframes introArrivee{
+  to { opacity:1; transform: translateY(0); }
+}
+
+@keyframes introBouton{
+  60% { opacity:1; transform: translateY(-3px); }
+  100% { opacity:1; transform: translateY(0); }
+}
+
+@keyframes pulseBouton{
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes sortieCadre{
+  0% { transform: scale(1); opacity:1; filter: blur(0); }
+  100% { transform: scale(1.02); opacity:0.65; filter: blur(2px); }
+}

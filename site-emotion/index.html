@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Mood Studio — Galerie immersive</title>
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+
+<body>
+
+  <audio id="audioAmbiance" preload="auto"></audio>
+  <audio id="audioTransition" preload="auto"></audio>
+
+
+
+<div class="rideau" id="rideau" aria-hidden="true">
+  <div class="rideau__contenu">
+    <p class="rideau__texte" id="rideauTexte">Chapitre suivant…</p>
+  </div>
+</div>
+
+
+
+<section class="landing" id="landing">
+  <div class="landing__fond" aria-hidden="true">
+    <span class="landing__lumiere"></span>
+    <span class="landing__lumiere"></span>
+    <span class="landing__lumiere"></span>
+  </div>
+
+  <div class="landing__contenu">
+    <h1 class="landing__titre">The Mood Studio</h1>
+    <p class="landing__sousTitre">L’agence des émotions</p>
+
+    <p class="landing__texte">
+      Trois moments de l’Histoire de France. Trois émotions à traverser.
+    </p>
+
+    <button class="bouton bouton--principal" id="boutonEntrer">
+      Entrer dans la galerie
+    </button>
+  </div>
+</section>
+
+
+<section class="chapitre chapitre--joie" id="joie" aria-hidden="true">
+  <div class="cadre">
+    <div class="grain"></div>
+
+    <div class="cartel">
+      <p class="cartel__titre">Marianne</p>
+      <p class="cartel__meta">Émotion : Joie</p>
+    </div>
+
+    
+    <div class="scene scene--active scene--joie-1" data-scene="1">
+      <div class="decor decor--joie"></div>
+
+      <div class="texte texte--joie">
+        <h2>Révolution Française</h2>
+        <p>Un peuple cherche un symbole. Quelque chose qui rassemble.</p>
+      </div>
+
+      <button class="bouton bouton--suite" data-action="suite">Suite</button>
+    </div>
+
+    <div class="scene scene--joie-2" data-scene="2">
+      <div class="decor decor--joie"></div>
+
+      <div class="texte texte--joie">
+        <h2>Révolution Française</h2>
+        <p>Marianne n’est pas une personne. C’est une idée qui prend forme.</p>
+      </div>
+
+      <button class="bouton bouton--suite" data-action="suite">Suite</button>
+    </div>
+
+  
+    <div class="scene scene--joie-3" data-scene="3">
+      <div class="decor decor--joie"></div>
+
+      <div class="texte texte--joie">
+        <h2>Révolution Française</h2>
+        <p>La joie, c’est le moment où l’on se sent ensemble.</p>
+      </div>
+
+      <button class="bouton bouton--continuer" data-action="chapitre" data-cible="bastille">
+        Continuer
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="chapitre chapitre--surprise" id="bastille" aria-hidden="true">
+  <div class="cadre">
+    <div class="grain"></div>
+
+    <div class="cartel">
+      <p class="cartel__titre">Prise de la Bastille</p>
+      <p class="cartel__meta">14 juillet 1789 — Surprise</p>
+    </div>
+
+    
+    <div class="scene scene--active scene--bastille-1" data-scene="1">
+      <div class="decor decor--surprise"></div>
+
+      <div class="texte texte--surprise">
+        <h2>Prise de la Bastille</h2>
+        <p>Tout tient encore debout. Mais quelque chose craque.</p>
+      </div>
+
+      <button class="bouton bouton--suite" data-action="suite">Suite</button>
+    </div>
+
+    <!-- Scène 2 -->
+    <div class="scene scene--bastille-2" data-scene="2">
+      <div class="decor decor--surprise"></div>
+
+      <div class="texte texte--surprise texte--fragmente">
+        <h2>Prise de la Bastille</h2>
+        <p class="morceau">Un cri.</p>
+        <p class="morceau">Un mouvement.</p>
+        <p class="morceau">Et l’Histoire change.</p>
+      </div>
+
+      <button class="bouton bouton--suite" data-action="suite">Suite</button>
+    </div>
+
+   
+    <div class="scene scene--bastille-3" data-scene="3">
+      <div class="decor decor--surprise"></div>
+
+      <div class="texte texte--surprise">
+        <h2>Prise de la Bastille</h2>
+        <p>La surprise laisse un silence. Puis une nouvelle direction.</p>
+      </div>
+
+      <button class="bouton bouton--continuer" data-action="chapitre" data-cible="sedan">
+        Continuer
+      </button>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="chapitre chapitre--degout" id="sedan" aria-hidden="true">
+  <div class="cadre">
+    <div class="grain"></div>
+
+    <div class="cartel">
+      <p class="cartel__titre">Bataille de Sedan</p>
+      <p class="cartel__meta">1er septembre 1870 — Dégoût</p>
+    </div>
+
+
+    <div class="scene scene--active scene--sedan-1" data-scene="1">
+      <div class="decor decor--degout"></div>
+
+      <div class="texte texte--degout">
+        <h2>Bataille de Sedan</h2>
+        <p>On ne célèbre pas. On survit.</p>
+      </div>
+
+      <button class="bouton bouton--suite" data-action="suite">Suite</button>
+    </div>
+
+    
+    <div class="scene scene--sedan-2" data-scene="2">
+      <div class="decor decor--degout"></div>
+
+      <div class="texte texte--degout">
+        <h2>Bataille de Sedan</h2>
+        <p>Une défaite qui colle à la peau. Un goût amer.</p>
+      </div>
+
+      <button class="bouton bouton--suite" data-action="suite">Suite</button>
+    </div>
+
+    
+    <div class="scene scene--sedan-3" data-scene="3">
+      <div class="decor decor--degout"></div>
+
+      <div class="texte texte--degout">
+        <h2>Bataille de Sedan</h2>
+        <p>Certaines pages dérangent. Mais elles font partie de l’Histoire.</p>
+      </div>
+
+      <button class="bouton bouton--principal" data-action="chapitre" data-cible="landing">
+        Revenir au début
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<script src="src/main.js"></script>
+</body>
+</html>
